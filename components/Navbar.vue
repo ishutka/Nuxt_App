@@ -25,6 +25,11 @@
                 About
                 </nuxt-link>
             </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link" no-refetch  active-class="active" to="/login">
+                LogIn
+                </nuxt-link>
+            </li>
           </ul>
         </div>
       </div>
