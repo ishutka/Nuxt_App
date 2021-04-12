@@ -1,5 +1,9 @@
 <template>
-  <h1>{{ user.name }}</h1>
+  <div>
+    <h1>{{ user.name }} id: {{ user.id }}</h1>
+    <hr />
+    <p>{{ user.email }}</p>
+  </div>
 </template>
 <script>
 export default {
@@ -7,14 +11,13 @@ export default {
     console.log(params);
     return /^\d+$/.test(params.id);
   },
-  asyncData({ params, error }) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          user: { name: `Test user ${params.id}` }
-        });
-      }, 1500);
-    });
-  }
-};
+  async asyncData({ params, error, $axios }) {
+    try {
+      const user = (await $axios.get(
+        `https://jsonplaceholder.typicode.com/users/${params.id}`
+      )).data;
+      return { user };
+    } catch (e) {
+      error(e);
+    }
 </script>
