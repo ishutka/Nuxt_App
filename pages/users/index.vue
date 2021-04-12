@@ -1,10 +1,12 @@
 <template>
   <section>
-    <h1>Users Page</h1>
+    <h1>{{ pageTitle }}</h1>
     <ol>
-      <li v-for="user in users" :key="user">
-          <a href="#" @click.prevent="goTo(user)">User {{ user }}</a>
-          </li>
+      <li v-for="user in users" :key="user.id">
+        <a href="#" @click.prevent="goTo(user)"
+          >{{ user.name }} ( {{ user.email }} )</a
+        >
+      </li>
     </ol>
   </section>
 </template>
@@ -12,13 +14,18 @@
 export default {
   data() {
     return {
-      users: [1, 2, 3, 4, 5]
+      pageTitle: "Users Page"
     };
   },
-methods:{
-    goTo(u){
-        this.$router.push('/users/'+ u);
+  computed: {
+    users() {
+      return this.$store.getters["users/users"];
     }
-}
+  },
+  methods: {
+    goTo(u) {
+      this.$router.push("/users/" + u.id);
+    }
+  }
 };
 </script>

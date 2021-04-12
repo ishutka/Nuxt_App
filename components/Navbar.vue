@@ -3,7 +3,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">NuxtJsr</a>
-
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -16,14 +15,39 @@
               >
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" no-refetch active-class="active" to="/users">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/users"
+              >
                 Users
               </nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" no-refetch  active-class="active" to="/about">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/about"
+              >
                 About
-                </nuxt-link>
+              </nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/login"
+              >
+                LogIn
+              </nuxt-link>
+            </li>
+            <li class="nav-item" v-if="isAuth">
+              <a class="nav-link" href="#" @click.prevent="logout">
+                LogOut
+              </a>
             </li>
           </ul>
         </div>
@@ -32,17 +56,31 @@
   </header>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      if (this.$route.path == "/about") {
+        this.$router.push("/login");
+      }
+    }
+  }
+};
 </script>
 <style lang="scss">
 .navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show > .nav-link {
-  color: rgba(0,0,0,.5)
+  color: rgba(0, 0, 0, 0.5);
 }
 .navbar-light .navbar-nav .nav-link.nuxt-link-exact-active {
   font-weight: 500;
-  color: rgba(0,0,0,.9);
+  color: rgba(0, 0, 0, 0.9);
 }
 </style>
