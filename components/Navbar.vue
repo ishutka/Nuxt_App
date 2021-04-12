@@ -3,7 +3,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">NuxtJsr</a>
-
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -30,6 +29,11 @@
                 LogIn
                 </nuxt-link>
             </li>
+            <li class="nav-item" v-if="isAuth">
+              <a class="nav-link" href="#" @click.prevent="logout">
+                LogOut
+                </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -37,7 +41,18 @@
   </header>
 </template>
 <script>
-export default {};
+export default {
+  computed:{
+    isAuth(){
+      return this.$store.getters.isAuth;
+    }
+  },
+  methods:{
+    logout(){
+    this.$store.dispatch('logout');
+    }
+  }
+};
 </script>
 <style lang="scss">
 .navbar-light .navbar-nav .active > .nav-link,
