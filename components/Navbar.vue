@@ -15,24 +15,39 @@
               >
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" no-refetch active-class="active" to="/users">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/users"
+              >
                 Users
               </nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" no-refetch  active-class="active" to="/about">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/about"
+              >
                 About
-                </nuxt-link>
+              </nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" no-refetch  active-class="active" to="/login">
+              <nuxt-link
+                class="nav-link"
+                no-refetch
+                active-class="active"
+                to="/login"
+              >
                 LogIn
-                </nuxt-link>
+              </nuxt-link>
             </li>
             <li class="nav-item" v-if="isAuth">
               <a class="nav-link" href="#" @click.prevent="logout">
                 LogOut
-                </a>
+              </a>
             </li>
           </ul>
         </div>
@@ -42,14 +57,17 @@
 </template>
 <script>
 export default {
-  computed:{
-    isAuth(){
+  computed: {
+    isAuth() {
       return this.$store.getters.isAuth;
     }
   },
-  methods:{
-    logout(){
-    this.$store.dispatch('logout');
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      if (this.$route.path == "/about") {
+        this.$router.push("/login");
+      }
     }
   }
 };
@@ -59,10 +77,10 @@ export default {
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show > .nav-link {
-  color: rgba(0,0,0,.5)
+  color: rgba(0, 0, 0, 0.5);
 }
 .navbar-light .navbar-nav .nav-link.nuxt-link-exact-active {
   font-weight: 500;
-  color: rgba(0,0,0,.9);
+  color: rgba(0, 0, 0, 0.9);
 }
 </style>
