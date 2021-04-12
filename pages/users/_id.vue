@@ -13,11 +13,15 @@ export default {
   },
   async asyncData({ params, error, $axios }) {
     try {
-      const user = (await $axios.get(
-        `https://jsonplaceholder.typicode.com/users/${params.id}`
-      )).data;
-      return { user };
+      const user = (
+        await $axios.get(
+          `https://jsonplaceholder.typicode.com/users/${params.id}`
+        )
+      ).data;
+      return {user};
     } catch (e) {
       error(e);
     }
+  }
+};
 </script>
