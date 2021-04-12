@@ -11,14 +11,10 @@ export default {
     console.log(params);
     return /^\d+$/.test(params.id);
   },
-  async asyncData({ params, error, $axios }) {
+  async asyncData({ params, error, store }) {
     try {
-      const user = (
-        await $axios.get(
-          `https://jsonplaceholder.typicode.com/users/${params.id}`
-        )
-      ).data;
-      return {user};
+      const user = await store.dispatch("users/fetchUserById", params.id);
+      return { user };
     } catch (e) {
       error(e);
     }
